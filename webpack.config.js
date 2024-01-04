@@ -41,7 +41,7 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
   },
   output: {
-    path: path.join(__dirname, "dist/js"),
+    path: path.join(__dirname, "extension/js"),
     filename: "[name].js",
   },
 };
@@ -50,7 +50,7 @@ function getHtmlPlugins(chunks) {
   return chunks.map(
     (chunk) =>
       new HTMLPlugin({
-        title: "React extension",
+        title: "Badge Eval",
         filename: `${chunk}.html`,
         chunks: [chunk],
       })

@@ -19,7 +19,7 @@ In the project directory, you can run:
 
 ### `npm run build`
 
-Builds the app for production to the `dist` folder.
+Builds the app for production to the `extension` folder.
 It correctly bundles the app and it contains the unpacked extension.
 
 ### `npm run watch`
