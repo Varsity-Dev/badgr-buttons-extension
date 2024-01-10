@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
 import { DOMMessage, DOMMessageResponse } from "./chromeServices/types";
+import Navbar from "./components/Navbar";
 
 const App: React.FC<{}> = () => {
   const [title, setTitle] = useState("");
@@ -28,9 +28,11 @@ const App: React.FC<{}> = () => {
 
   return (
     <div className="App">
-      <h1>Badge Eval</h1>
-      <span>Title contains {title.length} characters</span>
-      <span>Headlines contains {headlines.length} characters</span>
+      <Navbar />
+
+      <span>Title contains {title.length} characters.</span>
+      <br />
+      <span>Headlines contains {headlines.length} characters.</span>
     </div>
   );
 };

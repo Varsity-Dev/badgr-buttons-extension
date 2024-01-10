@@ -28,4 +28,4 @@ const messagesFromReactAppListener = (
 /**
  * Fired when a message is sent from either an extension process or a content script.
  */
-chrome.runtime.onMessage.addListener(messagesFromReactAppListener);
+chrome.runtime?.onMessage?.addListener(messagesFromReactAppListener);

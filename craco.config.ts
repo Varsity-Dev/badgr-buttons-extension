@@ -1,4 +1,9 @@
-import type { CracoConfig, Configure, WebpackContext } from "@craco/types";
+import type {
+  CracoConfig,
+  Configure,
+  WebpackContext,
+  CracoDevServerConfig,
+} from "@craco/types";
 import type { Configuration } from "webpack";
 
 const cracoConfig: CracoConfig = {
@@ -7,13 +12,8 @@ const cracoConfig: CracoConfig = {
       const extendedConfig: Configure<Configuration, WebpackContext> = {
         ...config,
         entry: {
-          main: [
-            context.env === "development" &&
-              require.resolve("react-dev-utils/webpackHotDevClient"),
-            context.paths?.appIndexJs,
-          ]
-            .filter(Boolean)
-            .toString(),
+          // TODO: configure package 'react-dev-utils/webpackHotDevClient'
+          main: [context.paths?.appIndexJs].filter(Boolean).toString(),
 
           /**
            *  Chrome Content Scripts
@@ -31,6 +31,13 @@ const cracoConfig: CracoConfig = {
       };
       return extendedConfig;
     },
+  },
+  devServer(config, context) {
+    const devServerConfig: CracoDevServerConfig = {
+      ...config,
+      // hot: "only",
+    };
+    return devServerConfig;
   },
 };
 
