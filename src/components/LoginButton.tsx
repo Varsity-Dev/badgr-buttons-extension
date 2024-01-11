@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useContext, MouseEventHandler } from "react";
+import { AuthContext } from "../App";
 
 const LoginButton: React.FC<{}> = () => {
-  const handleLogin = () => {
+  const { setAuthToken } = useContext(AuthContext);
+
+  const handleLogin: MouseEventHandler<HTMLButtonElement> = (e) => {
     console.log("Login Clicked");
+    chrome.identity.clearAllCachedAuthTokens();
+    chrome.identity.getAuthToken({ interactive: true }, (token) => {
+      console.log("Token: " + token);
+      setAuthToken(token as string);
+    });
   };
 
   return (

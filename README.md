@@ -12,6 +12,7 @@ Request a live/scheduled Evaluation or async assignment.
 3. After initial installation of the extension, it should require a Google login. Login info should be stored in the extensions cookies/state and sent with every API call.\
    3.1 [Google OAuth 2.0 on Chrome Extension](https://developer.chrome.com/docs/extensions/how-to/integrate/oauth)\
    3.2 [Google OAuth 2.0 Protocol](https://developers.google.com/identity/protocols/oauth2#clientside)
+   3.3 [Google Console API - Credentials](https://console.cloud.google.com/apis/credentials?authuser=1&project=badge-eval)
 4. Project Owner will provide the API endpoint.
 
 ## Available Scripts

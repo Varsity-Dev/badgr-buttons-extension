@@ -16,7 +16,7 @@ const cracoConfig: CracoConfig = {
           main: [context.paths?.appIndexJs].filter(Boolean).toString(),
 
           /**
-           *  Chrome Content Scripts
+           *  Chrome API Scripts
            */
           content: "./src/chromeServices/DOMEvaluator.ts",
         },

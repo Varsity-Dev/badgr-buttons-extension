@@ -14,11 +14,17 @@
     "48": "images/logo48.png",
     "128": "images/logo128.png"
   },
-  "permissions": ["activeTab"],
+  "permissions": ["identity", "activeTab"],
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*"],
-      "js": ["./static/js/content.js"]
+      "matches": ["https://*badgr.com/*", "https://*github.com/*"],
+      "js": ["./static/js/content.js"],
+      "match_about_blank": true
     }
-  ]
+  ],
+  "oauth2": {
+    "client_id": "179752263858-0klg6h496ev1u4qh1b964tlpn3365tl1.apps.googleusercontent.com",
+    "scopes": ["https://www.googleapis.com/auth/userinfo.email"]
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAn066c4Y0Xpj0afvKf+t9dz30rZgbbwqlsDtCFLfwr6nlUNh8cJxKI6jUlWdO3I5/Yjm5GbM43ymCPrx3JWqcZdq2eXid5Pc2VdfxNUvknBSY7VeA3pl4xRbcTCNENt6A2eCH5VrKHWZaCYwu25ihhdTkPQUmupIBFk/0fIcQzvYud4ytAgxTAofkolSJfdB5RKP+JqHzBPV6Gk53jtSTb8rxkp2ItFkJ2gdtMHhF+XyKGoiDJac2u8XWuQwmUl+Pu/z8hWp0f5CGBQbtjK7KIwdskUqBgnipxGs2b42ZPl/mvL4ozbI51aKAv4vAhsLrO99Y4PWvmiZpe6JdPWOhLQIDAQAB"
 }

@@ -1,10 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+  createContext,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { DOMMessage, DOMMessageResponse } from "./chromeServices/types";
 import Navbar from "./components/Navbar";
+
+export type GlobalContext = {
+  authToken: string;
+  setAuthToken: Dispatch<SetStateAction<string>>;
+};
+export const AuthContext = createContext<GlobalContext>({
+  authToken: "",
+  setAuthToken: () => {},
+});
 
 const App: React.FC<{}> = () => {
   const [title, setTitle] = useState("");
   const [headlines, setHeadlines] = useState<string[]>([]);
+  const [authToken, setAuthToken] = useState("");
 
   useEffect(() => {
     chrome.tabs &&
@@ -27,13 +43,17 @@ const App: React.FC<{}> = () => {
   }, []);
 
   return (
-    <div className="App">
-      <Navbar />
+    <AuthContext.Provider value={{ authToken, setAuthToken }}>
+      <div className="App">
+        <Navbar />
 
-      <span>Title contains {title.length} characters.</span>
-      <br />
-      <span>Headlines contains {headlines.length} characters.</span>
-    </div>
+        <span>Title contains {title.length} characters.</span>
+        <br />
+        <span>Headlines contains {headlines.length} characters.</span>
+        <br />
+        <span>Token: {authToken}</span>
+      </div>
+    </AuthContext.Provider>
   );
 };
 
