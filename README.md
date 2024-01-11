@@ -2,6 +2,8 @@
 
 Request a live/scheduled Evaluation or async assignment.
 
+> Important: This extension doesn't work on Brave or Chromium. It does work on Google Chrome only because of Google OAuth 2.0
+
 ## Specs
 
 1. A chrome extension like Badge Extras that adds detects a badge page in Badgr or GitHub and provides a way to request an evaluation (either live/scheduled or async assignment).\
