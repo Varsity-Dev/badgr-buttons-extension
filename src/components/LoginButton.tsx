@@ -5,10 +5,9 @@ const LoginButton: React.FC<{}> = () => {
   const { setAuthToken } = useContext(AuthContext);
 
   const handleLogin: MouseEventHandler<HTMLButtonElement> = (e) => {
-    console.log("Login Clicked");
-    chrome.identity.clearAllCachedAuthTokens();
+    e.preventDefault();
+
     chrome.identity.getAuthToken({ interactive: true }, (token) => {
-      console.log("Token: " + token);
       setAuthToken(token as string);
     });
   };

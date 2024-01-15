@@ -19,6 +19,8 @@ const cracoConfig: CracoConfig = {
            *  Chrome API Scripts
            */
           content: "./src/chromeServices/DOMEvaluator.ts",
+          install: "./src/chromeServices/OnInstall.ts",
+          storage: "./src/chromeServices/Storage.ts",
         },
         output: {
           ...config.output,

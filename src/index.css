@@ -7,3 +7,11 @@ body {
   width: 400px;
   height: 500px;
 }
+
+#root {
+  @apply w-full h-full text-base text-black bg-gray-200;
+}
+
+.App {
+  @apply w-full h-full;
+}
