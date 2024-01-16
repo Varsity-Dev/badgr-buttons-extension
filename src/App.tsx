@@ -5,7 +5,7 @@ import React, {
   Dispatch,
   SetStateAction,
 } from "react";
-// import { DOMMessage, DOMMessageResponse } from "./chromeServices/types";
+import { DOMMessage, DOMMessageResponse } from "./chromeServices/types";
 import Navbar from "./components/Navbar";
 
 export type AuthToken = {
@@ -18,8 +18,9 @@ export const AuthContext = createContext<AuthToken>({
 });
 
 const App: React.FC<{}> = () => {
-  // const [title, setTitle] = useState("");
-  // const [headlines, setHeadlines] = useState<string[]>([]);
+  const [badgeId, setBadgeId] = useState("");
+  const [badgeTitle, setBadgeTitle] = useState("");
+  const [badgeDescription, setBadgeDescription] = useState("");
   const [authToken, setAuthToken] = useState("");
   const [username, setUsername] = useState("");
 
@@ -28,24 +29,27 @@ const App: React.FC<{}> = () => {
       chrome.tabs.query(
         {
           active: true,
-          currentWindow: true,
         },
         (tabs) => {
-          // chrome.tabs.sendMessage(
-          //   tabs[0].id || 0,
-          //   { type: "GET_DOM" } as DOMMessage,
-          //   (response: DOMMessageResponse) => {
-          //     setTitle(response.title);
-          //     setHeadlines(response.headlines);
-          //   }
-          // );
+          const badgeURL = tabs[0].url as string;
+          const matches = badgeURL.match(/\w+$/);
+          const badgeId = matches && matches.length > 0 ? matches[0] : "";
+          chrome.tabs.sendMessage(
+            tabs[0].id || 0,
+            { type: "GET_DOM" } as DOMMessage,
+            (response: DOMMessageResponse) => {
+              setBadgeTitle(response.badgeTitle);
+              setBadgeDescription(response.badgeDescription);
+              setBadgeId(badgeId);
+            }
+          );
         }
       );
   }, []);
 
   useEffect(() => {
     if (authToken.length > 0) {
-      // This method needs Chrome Sync turned on to work.
+      // This method (getProfileUserInfo) needs Chrome Sync turned on to work.
       chrome.identity?.getProfileUserInfo((userInfo) => {
         setUsername(userInfo.email);
       });
@@ -63,6 +67,20 @@ const App: React.FC<{}> = () => {
             </div>
           </div>
         ) : null}
+        <div className="flex-col w-full p-4">
+          <div className="flex-initial">
+            <span>Badge ID: {badgeId ? badgeId : "Not Found"}</span>
+          </div>
+          <div className="flex-initial">
+            <span>Badge Title: {badgeTitle ? badgeTitle : "Not Found"}</span>
+          </div>
+          <div className="flex-initial">
+            <span>
+              Badge Description:
+              {badgeDescription ? badgeDescription : "Not Found"}
+            </span>
+          </div>
+        </div>
       </div>
     </AuthContext.Provider>
   );

@@ -13,11 +13,14 @@ const messagesFromReactAppListener = (
 ) => {
   console.log("[content.js]. Message received", message);
 
+  const badgeTitle = document.querySelector("[role=heading]")?.textContent;
+  const badgeDescription = document.querySelector(
+    "[bgdatacy=top-description] > span"
+  )?.textContent;
+
   const response: DOMMessageResponse = {
-    title: document.title,
-    headlines: Array.from(document.getElementsByTagName<"h1">("h1")).map(
-      (h1) => h1.innerText
-    ),
+    badgeTitle: badgeTitle as string,
+    badgeDescription: badgeDescription as string,
   };
 
   console.log("[content.js]. Message response", response);

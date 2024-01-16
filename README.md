@@ -2,7 +2,7 @@
 
 Request a live/scheduled Evaluation or async assignment.
 
-> Important: This extension doesn't work on Brave or Chromium. It does work on Google Chrome only because of Google OAuth 2.0
+> Important: This extension doesn't work on Brave or Chromium. It only does work on Google Chrome because of Google OAuth 2.0. It also requires to have enabled Google Chrome Sync.
 
 ## Specs
 
