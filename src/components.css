@@ -4,4 +4,7 @@
   .Navbar {
     @apply w-full bg-stone-900 text-white h-14;
   }
+  .Footer {
+    @apply w-full bg-gray-300 text-black text-base h-14;
+  }
 }
