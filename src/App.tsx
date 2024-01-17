@@ -23,8 +23,14 @@ const App: React.FC<{}> = () => {
   const [username, setUsername] = useState("");
 
   useEffect(() => {
+    chrome.identity.getAuthToken({ interactive: false }, (token) => {
+      setAuthToken(token as string);
+    });
+  }, []);
+
+  useEffect(() => {
     if (authToken.length > 0) {
-      // This method (getProfileUserInfo) needs Chrome Sync turned on to work.
+      // This method (getProfileUserInfo) needs Chrome Sync to be turned on to work well.
       chrome.identity?.getProfileUserInfo((userInfo) => {
         setUsername(userInfo.email);
       });
