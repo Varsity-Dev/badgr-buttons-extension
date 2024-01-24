@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Platform } from "../utils/content";
 
 import type { DOMMessage, DOMMessageResponse } from "../chromeServices/types";
-
-enum Platform {
-  Other = "other",
-  Badgr = "badgr",
-  OpenCompetencyLibrary = "opencomplib",
-}
 
 const Content: React.FC<{}> = () => {
   const [badgeId, setBadgeId] = useState("");
@@ -23,13 +18,13 @@ const Content: React.FC<{}> = () => {
         (tabs) => {
           const activeTab = tabs[0];
           const platform = getPlatform(activeTab);
-          const badgeId = getBadgeId(activeTab);
+          const badgeId = getBadgeId(activeTab, platform);
           chrome.tabs.sendMessage(
             activeTab.id || 0,
-            { type: "GET_DOM" } as DOMMessage,
+            { type: "GET_DOM", platform } as DOMMessage,
             (response: DOMMessageResponse) => {
-              setBadgeTitle(response.badgeTitle);
-              setBadgeDescription(response.badgeDescription);
+              setBadgeTitle(response?.badgeTitle);
+              setBadgeDescription(response?.badgeDescription);
               setBadgeId(badgeId);
               setPlatform(platform);
             }
@@ -40,19 +35,18 @@ const Content: React.FC<{}> = () => {
 
   return (
     <div className="flex-col w-full p-4">
-      <div className="flex-initial">
+      <div className="flex-initial m-2">
         <span>Badge ID: {badgeId ? badgeId : "Not Found"}</span>
       </div>
-      <div className="flex-initial">
+      <div className="flex-initial m-2">
         <span>Badge Title: {badgeTitle ? badgeTitle : "Not Found"}</span>
       </div>
-      <div className="flex-initial">
+      <div className="flex-initial m-2">
         <span>
-          Badge Description:
-          {badgeDescription ? badgeDescription : "Not Found"}
+          Badge Description: {badgeDescription ? badgeDescription : "Not Found"}
         </span>
       </div>
-      <div className="flex-initial">
+      <div className="flex-initial m-2">
         <span>
           Platform:
           {" " + platform}
@@ -74,10 +68,16 @@ function getPlatform(activeTab: chrome.tabs.Tab): Platform {
   }
 }
 
-function getBadgeId(activeTab: chrome.tabs.Tab): string {
-  const badgeURL = activeTab.url as string;
-  const matches = badgeURL.match(/\w+$/);
-  const badgeId = matches && matches.length > 0 ? matches[0] : "";
+function getBadgeId(activeTab: chrome.tabs.Tab, platform: Platform): string {
+  let badgeId = "";
+  if (platform === Platform.Badgr) {
+    const badgeURL = activeTab.url as string;
+    const matches = badgeURL.match(/\w+$/);
+    badgeId = matches && matches.length > 0 ? matches[0] : "";
+  } else if (platform === Platform.OpenCompetencyLibrary) {
+    badgeId = "";
+  }
+
   return badgeId;
 }
 

@@ -9,8 +9,8 @@ const Footer: React.FC<FooterProps> = ({ username }) => {
     <div className="Footer">
       {username.length > 0 ? (
         <div className="flex-col items-center justify-center text-base p-4">
-          <div className="flex-initial">
-            <span>Email: {username}</span>
+          <div className="flex-initial text-center">
+            <span>Signed in as: {username}</span>
           </div>
         </div>
       ) : null}
