@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Platform } from "../utils/content";
+import LiveEvaluationButton from "./LiveEvaluationButton";
+import AsyncAssignmentButton from "./AsyncAssignmentButton";
 
 import type { DOMMessage, DOMMessageResponse } from "../chromeServices/types";
 
-const Content: React.FC<{}> = () => {
+const Content: React.FC<{ username: string }> = ({ username }) => {
   const [badgeId, setBadgeId] = useState("");
   const [badgeTitle, setBadgeTitle] = useState("");
   const [badgeDescription, setBadgeDescription] = useState("");
@@ -34,25 +36,47 @@ const Content: React.FC<{}> = () => {
   }, []);
 
   return (
-    <div className="flex-col w-full p-4">
-      <div className="flex-initial m-2">
-        <span>Badge ID: {badgeId ? badgeId : "Not Found"}</span>
+    <>
+      <div className="flex flex-col w-full p-4">
+        <div className="flex-initial m-2">
+          <span>Badge ID: {badgeId ? badgeId : "Not Found"}</span>
+        </div>
+        <div className="flex-initial m-2">
+          <span>Badge Title: {badgeTitle ? badgeTitle : "Not Found"}</span>
+        </div>
+        <div className="flex-initial m-2">
+          <span>
+            Badge Description:{" "}
+            {badgeDescription ? badgeDescription : "Not Found"}
+          </span>
+        </div>
+        <div className="flex-initial m-2">
+          <span>
+            Platform:
+            {" " + platform}
+          </span>
+        </div>
       </div>
-      <div className="flex-initial m-2">
-        <span>Badge Title: {badgeTitle ? badgeTitle : "Not Found"}</span>
+
+      <div className="flex w-full p-4 justify-center items-center mt-5">
+        <div className="flex-initial">
+          <LiveEvaluationButton
+            badgeTitle={badgeTitle}
+            badgeDescription={badgeDescription}
+            email={username}
+          />
+        </div>
       </div>
-      <div className="flex-initial m-2">
-        <span>
-          Badge Description: {badgeDescription ? badgeDescription : "Not Found"}
-        </span>
+      <div className="flex w-full p-4 justify-center items-center">
+        <div className="flex-initial">
+          <AsyncAssignmentButton
+            badgeTitle={badgeTitle}
+            badgeDescription={badgeDescription}
+            email={username}
+          />
+        </div>
       </div>
-      <div className="flex-initial m-2">
-        <span>
-          Platform:
-          {" " + platform}
-        </span>
-      </div>
-    </div>
+    </>
   );
 };
 

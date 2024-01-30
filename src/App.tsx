@@ -45,7 +45,7 @@ const App: React.FC<{}> = () => {
             <Navbar />
           </div>
           <div className="flex-auto">
-            <Content />
+            <Content username={username} />
           </div>
           <div className="flex-initial">
             <Footer username={username} />

@@ -13,7 +13,10 @@ const LoginButton: React.FC<{}> = () => {
   };
 
   return (
-    <button className="bg-blue-800 p-2 rounded-md" onClick={handleLogin}>
+    <button
+      className="bg-green-800 text-white p-2 rounded-md"
+      onClick={handleLogin}
+    >
       Login
     </button>
   );
